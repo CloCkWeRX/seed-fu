@@ -71,12 +71,12 @@ module SeedFu
         else
           record.assign_attributes(data)
         end
-        record.save(:validate => false) || raise(ActiveRecord::RecordNotSaved)
+        record.save(:validate => false) || raise(ActiveRecord::RecordNotSaved, 'Record not saved!')
         record
       end
 
       def find_or_initialize_record(data)
-        @model_class.where(constraint_conditions(data)).first ||
+        @model_class.where(constraint_conditions(data)).take ||
         @model_class.new
       end
 
